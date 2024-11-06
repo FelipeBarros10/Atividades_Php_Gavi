@@ -22,24 +22,29 @@ curl_setopt($curlRequest, CURLOPT_RETURNTRANSFER, true);
 //Armazenando a resposta
 $getAllData = curl_exec($curlRequest);
 
-// transforma a resposta JSON em uma array PHP
+//Transforma a resposta JSON em uma array PHP
 $response = json_decode($getAllData, true);
 
+//Capturando o dado enviado pelo form através do atributo 'name' setado no iput
 $name = $_POST['name'];
 
-
-$_SESSION['allData'] = $response;
-
-
+  //Foreach que vai passar por todos os index do $response(que é a resposta da requisição)
   foreach($response as $itemResponse) {
 
+      //Verificando se exiiste o nome enviado pelo formulário na resposta da requisição
       if($name == $itemResponse['name']) {
+        //Armazenando em sessões algumas informações que serão usadas       
           $_SESSION['name'] = $name;
           $_SESSION['email'] = $itemResponse['email'];
           $_SESSION['address'] = $itemResponse['address'];
+
+        //Encaminha para a próxima sessão (página)    
           header('location:usuarios.php');
+
+          //Finaliza o if
           return true;
 
+        //Caso não exista o nome na resposta, o usuário é direcionado para uma tela de erro
         }else{
           header('location:erro.php');
         }
