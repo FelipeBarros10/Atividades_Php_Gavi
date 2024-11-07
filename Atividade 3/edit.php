@@ -1,5 +1,7 @@
 <?php
 
+  session_start();
+
   include 'db.php';
   
   $getAllData = $conectBd->query("SELECT * FROM $userTable");
@@ -7,6 +9,10 @@
   $dataInArray = $getAllData->fetchAll(PDO::FETCH_ASSOC);
 
   $idOfUser = $_GET['id'];
+
+  $_SESSION['id'] = $idOfUser;
+
+
 
   if($idOfUser > 0) {
     foreach($dataInArray as $item){
@@ -74,7 +80,7 @@
         input[type="submit"] {
             width: 100%;
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #1d324d;
             color: white;
             border: none;
             border-radius: 4px;
@@ -82,14 +88,16 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #1d324d;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Cadastro</h2>
+        <h2>Edite seu cadastro</h2>
         <form action="handleEdit.php" method="POST">
+            <input type="hidden" name="id" id="id" value="<?php echo $idOfUser ?>">
+
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required value="<?php echo $showUserName  ?>"> 
 
@@ -99,7 +107,7 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required value="<?php echo $showUserEmail  ?>">
 
-            <input type="submit" value="Cadastrar">
+            <input type="submit" value="Editar">
         </form>
     </div>
 </body>

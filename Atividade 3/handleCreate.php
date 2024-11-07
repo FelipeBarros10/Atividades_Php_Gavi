@@ -1,4 +1,5 @@
 <?php
+   
 
   include 'db.php';
   
@@ -6,11 +7,13 @@
 
   $dataInArray = $getAllData->fetchAll(PDO::FETCH_ASSOC);
 
+  
+
   $userName = $_REQUEST['nome'];
   $userEmail = $_REQUEST['email'];
   $userPassword = $_REQUEST['senha'];
 
-  if($_REQUEST != ''){
+  if(!empty($userName) && !empty($userEmail) && !empty($userPassword)){
     $insertSql = $conectBd->prepare("INSERT INTO $userTable (NOME, EMAIL, SENHA) VALUES (:nome, :email, :senha)");
 
     $insertSql -> bindParam(':nome', $userName);

@@ -27,26 +27,112 @@
  
 
 ?>
-<div style="justify-content: center; display: flex; align-items:center; width:100%;">
-  <table border="1">
-      <tr>
-          <td>Id</td>
-          <td>Nome</td>
-          <td>Email</td>
-          <td>Telefone</td>
-          <td>Empresa</td>
-      </tr>
-  <?php foreach($response as $item){ ?>
-          <tr>
-              <td><?php echo $item['id']; ?></td>
-              <td><?php echo $item['name']; ?></td>
-              <td><?php echo $item['email']; ?></td>
-              <td><?php echo $item['phone']; ?></td>
-              <td><?php 
-              $companyData = $item['company'];
-              echo $companyData['name'];
-              ?></td>
-          </tr>
-  <?php } ?>
-  </table>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Dados</title>
+    <style>
+        /* Estilização do body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            overflow-x: hidden;
+        }
+
+        /* Container para centralizar a tabela */
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Estilo da tabela */
+        table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Estilo para os cabeçalhos da tabela */
+        th {
+            background-color: #1d324d;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        /* Estilo para as células da tabela */
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Estilo para a linha da tabela ao passar o mouse */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Estilo para a primeira coluna */
+        td:first-child {
+            font-weight: bold;
+        }
+
+        /* Estilo para a última linha da tabela */
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Responsividade da tabela */
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Empresa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($response as $item) { ?>
+                    <tr>
+                        <td><?php echo $item['id']; ?></td>
+                        <td><?php echo $item['name']; ?></td>
+                        <td><?php echo $item['email']; ?></td>
+                        <td><?php echo $item['phone']; ?></td>
+                        <td><?php echo $item['company']['name']; ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

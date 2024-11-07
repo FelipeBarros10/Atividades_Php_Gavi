@@ -36,6 +36,27 @@
           align-items: center;
         }
 
+        .btn {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #1d324d; /* Cor de fundo */
+            color: white; /* Cor do texto */
+            border: none; /* Remove a borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            font-size: 16px; /* Tamanho da fonte */
+            cursor: pointer; /* Altera o cursor para indicar que o botão é clicável */
+            transition: background-color 0.3s ease; /* Adiciona uma transição suave ao passar o mouse */
+        }
+
+        .btn:hover {
+            background-color: #1d323e; /* Cor de fundo quando o mouse passar sobre o botão */
+        }
+
+        .btn a{
+            text-decoration: none;
+            color: #fff;
+        }
+
         /* Estilo da tabela */
         table {
             width: 80%;
@@ -43,18 +64,21 @@
             border-collapse: collapse;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
 
         /* Cabeçalho da tabela */
         th {
-            background-color: #4CAF50;
+            background-color: #1d324d;
             color: white;
             padding: 12px;
             text-align: left;
             font-size: 1.1em;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+            
+
+        }
+
+        tr, th {
+            border-right: 1px solid #fff;
         }
 
         /* Linhas da tabela */
@@ -76,20 +100,20 @@
         }
 
         /* Bordas arredondadas nas células */
-        th, td {
-            border-radius: 4px;
+        td {
+            
         }
 
         /* Última linha com borda mais grossa */
         tr:last-child td {
-            border-bottom: 2px solid #4CAF50;
+            border-bottom: 2px solid #1d324d;
         }
 
         /* Estilo dos ícones de ação */
         .acao {
             display: flex;
-            gap: 10px;
             justify-content: flex-start;
+        
         }
 
         .acao a {
@@ -100,11 +124,26 @@
             transition: background-color 0.3s;
         }
 
+        form {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .acao .delete {
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+
         .acao a:hover {
             background-color: #f0f0f0;
         }
 
-        .acao a.delete:hover {
+        .acao .delete:hover {
             color: #e74c3c; /* Cor vermelha para o ícone de deletar */
         }
 
@@ -115,7 +154,7 @@
 </head>
 <body>
   <div class="center">
-    <div>
+    <div class="btn">
       <a href="create.php">Cadastre um usuário</a>
     </div>
     <table class="table table-striped">
@@ -136,7 +175,10 @@
                   <td class="acao">
                       <!-- Ícones de edição e lixeira do Bootstrap -->
                       <?php echo '<a class="edit" href="edit.php?id= '.$row['ID'].'"><i class="bi bi-pencil-square " title="Editar"></i></a>' ?>
-                      <a class="delete" href=""><i class="bi bi-trash " title="Excluir"></i></a>
+                      <form action="handleDelete.php" method="POST">
+                        <input type="hidden" name="id" id="id" value="<?php echo $row['ID'] ?>">
+                        <button type="submit" class="delete"><i class="bi bi-trash " title="Excluir"></i></button>
+                      </form>
                   </td>
                 </tr>
             <?php }  ?>
